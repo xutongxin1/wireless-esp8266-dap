@@ -59,7 +59,7 @@ extern int kSock;
 extern TaskHandle_t kDAPTaskHandle;
 
 int kRestartDAPHandle = NO_SIGNAL;
-
+int kRestartDAPHandle1 = NO_SIGNAL;
 
 static DapPacket_t DAPDataProcessed;
 static int dap_respond = 0;

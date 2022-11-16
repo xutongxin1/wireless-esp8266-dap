@@ -3,3 +3,8 @@ build/
 tmp/
 .history/
 sdkconfig.old
+.idea/
+
+components/DAP/CMakeLists.txt
+
+*.txt
