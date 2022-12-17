@@ -79,7 +79,7 @@ void Dap_Init(void)
     uart_bridge_init();
 #endif
     wifi_init();
-    DAP_Setup();
+    // DAP_Setup();
     timer_init();
 
 #if (USE_MDNS == 1)
@@ -110,7 +110,7 @@ void Dap_Init(void)
 #endif
 
     // DAP handle task
-    xTaskCreate(DAP_Thread, "DAP_Task", 2048, NULL, 10, &kDAPTaskHandle);
+    // xTaskCreate(DAP_Thread, "DAP_Task", 2048, NULL, 10, &kDAPTaskHandle);
 
 #if (USE_UART_BRIDGE == 1)
     xTaskCreate(uart_bridge_task, "uart_server", 1024, NULL, 2, NULL);

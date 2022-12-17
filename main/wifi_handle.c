@@ -52,13 +52,13 @@ static esp_err_t event_handler(void *ctx, system_event_t *event) {
 #endif
         break;
     case SYSTEM_EVENT_STA_GOT_IP:
-        GPIO_SET_LEVEL_HIGH(PIN_LED_WIFI_STATUS);
+//        GPIO_SET_LEVEL_HIGH(PIN_LED_WIFI_STATUS);
 
         xEventGroupSetBits(wifi_event_group, IPV4_GOTIP_BIT);
         os_printf("SYSTEM EVENT STA GOT IP : %s\r\n", ip4addr_ntoa(&event->event_info.got_ip.ip_info.ip));
         break;
     case SYSTEM_EVENT_STA_DISCONNECTED:
-        GPIO_SET_LEVEL_LOW(PIN_LED_WIFI_STATUS);
+//        GPIO_SET_LEVEL_LOW(PIN_LED_WIFI_STATUS);
 
         os_printf("Disconnect reason : %d\r\n", (int)info->disconnected.reason);
 
@@ -124,8 +124,8 @@ static void wait_for_ip() {
 }
 
 void wifi_init(void) {
-    GPIO_FUNCTION_SET(PIN_LED_WIFI_STATUS);
-    GPIO_SET_DIRECTION_NORMAL_OUT(PIN_LED_WIFI_STATUS);
+//    GPIO_FUNCTION_SET(PIN_LED_WIFI_STATUS);
+//    GPIO_SET_DIRECTION_NORMAL_OUT(PIN_LED_WIFI_STATUS);
 
     tcpip_adapter_init();
 

@@ -16,6 +16,8 @@ static struct {
     const char *password;
 } wifi_list[] __attribute__((unused)) = {
     {.ssid = "xtxWork", .password = "WorkWithXTX"},
+    //{.ssid = "526-2.4G",.password = "526FLSDH"},
+    //{.ssid = "Mi1S",.password = "DMZcomeon"},
     // Add your WAP like this:
     // {.ssid = "your ssid", .password = "your password"},
 };
@@ -45,7 +47,7 @@ static struct {
 // DO NOT CHANGE
 #define USE_TCP_NETCONN 0
 
-#define PORT                3240
+#define PORT                1920
 #define CONFIG_EXAMPLE_IPV4 1
 #define USE_KCP             0
 #define MTU_SIZE            1500
