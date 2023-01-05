@@ -15,10 +15,10 @@ static struct {
     const char *ssid;
     const char *password;
 } wifi_list[] __attribute__((unused)) = {
-    {.ssid = "OTA", .password = "12345678"},
-    {.ssid = "DAP", .password = "12345678"},
+    {.ssid = "TWP974", .password = "lianghuiqiang"},
+    // {.ssid = "DAP", .password = "12345678"},
     // Add your WAP like this:
-    // {.ssid = "your ssid", .password = "your password"},
+    {.ssid = "xtxWork", .password = "WorkWithXTX"},
 };
 
 #define WIFI_LIST_SIZE (sizeof(wifi_list) / sizeof(wifi_list[0]))
@@ -36,17 +36,17 @@ static struct {
 #define DAP_IP_NETMASK 255, 255, 255, 0
 //
 
-#define USE_OTA              1
+#define USE_OTA              0
 
-#define USE_UART_BRIDGE      1
+#define USE_UART_BRIDGE      0
 #define UART_BRIDGE_PORT     1234
-#define UART_BRIDGE_BAUDRATE 74880
+#define UART_BRIDGE_BAUDRATE 115200
 //
 
 #define USE_TCP_NETCONN 0
 
 // DO NOT CHANGE
-#define PORT                3240
+#define PORT                6666
 #define CONFIG_EXAMPLE_IPV4 1
 #define USE_KCP             0
 #define MTU_SIZE            1500

@@ -1,6 +1,6 @@
 set(COMPONENT_ADD_INCLUDEDIRS "${PROJECT_PATH}")
 set(COMPONENT_SRCS
-    main.c timer.c tcp_server.c usbip_server.c DAP_handle.c
-    kcp_server.c tcp_netconn.c uart_bridge.c wifi_handle.c)
+    "main.c" "timer.c" "tcp_server.c" "usbip_server.c" "DAP_handle.c"
+    "kcp_server.c""tcp_netconn.c" "uart_config.c" "tcp.c" "wifi_handle.c" "pr_choose.c")
 
 register_component()

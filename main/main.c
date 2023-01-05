@@ -13,7 +13,10 @@
 #include "main/tcp_server.h"
 #include "main/tcp_netconn.h"
 #include "main/kcp_server.h"
-#include "main/uart_bridge.h"
+#include "main/bps_config.h"
+#include "main/uart_config.h"
+#include "main/tcp.h"
+
 #include "main/timer.h"
 #include "main/wifi_configuration.h"
 #include "main/wifi_handle.h"
@@ -36,27 +39,31 @@
 
 #include "mdns.h"
 
+#define EVENTS_QUEUE_SIZE 10
+
 extern void DAP_Setup(void);
 extern void DAP_Thread(void *argument);
 extern void SWO_Thread();
 
 TaskHandle_t kDAPTaskHandle = NULL;
 
-
 static const char *MDNS_TAG = "server_common";
 
-void mdns_setup() {
+void mdns_setup()
+{
     // initialize mDNS
     int ret;
     ret = mdns_init();
-    if (ret != ESP_OK) {
+    if (ret != ESP_OK)
+    {
         ESP_LOGW(MDNS_TAG, "mDNS initialize failed:%d", ret);
         return;
     }
 
     // set mDNS hostname
     ret = mdns_hostname_set(MDNS_HOSTNAME);
-    if (ret != ESP_OK) {
+    if (ret != ESP_OK)
+    {
         ESP_LOGW(MDNS_TAG, "mDNS set hostname failed:%d", ret);
         return;
     }
@@ -64,71 +71,74 @@ void mdns_setup() {
 
     // set default mDNS instance name
     ret = mdns_instance_name_set(MDNS_INSTANCE);
-    if (ret != ESP_OK) {
+    if (ret != ESP_OK)
+    {
         ESP_LOGW(MDNS_TAG, "mDNS set instance name failed:%d", ret);
         return;
     }
     ESP_LOGI(MDNS_TAG, "mDNS instance name set to: [%s]", MDNS_INSTANCE);
 }
 
-void app_main() {
-    // struct rst_info *rtc_info = system_get_rst_info();
-
-    // os_printf("reset reason: %x\n", rtc_info->reason);
-
-    // if (rtc_info->reason == REASON_WDT_RST ||
-    //     rtc_info->reason == REASON_EXCEPTION_RST ||
-    //     rtc_info->reason == REASON_SOFT_WDT_RST)
-    // {
-    // if (rtc_info->reason == REASON_EXCEPTION_RST)
-    // {
-    //     os_printf("Fatal exception (%d):\n", rtc_info->exccause);
-    // }
-    // os_printf("epc1=0x%08x, epc2=0x%08x, epc3=0x%08x,excvaddr=0x%08x, depc=0x%08x\n",
-    //             rtc_info->epc1, rtc_info->epc2, rtc_info->epc3,
-    //             rtc_info->excvaddr, rtc_info->depc);
-    // }
+void app_main()
+{
 
     ESP_ERROR_CHECK(nvs_flash_init());
 
-#if (USE_UART_BRIDGE == 1)
-    uart_bridge_init();
-#endif
     wifi_init();
-    DAP_Setup();
+    // DAP_Setup();
     timer_init();
 
-#if (USE_MDNS == 1)
-    mdns_setup();
-#endif
-
-
-#if (USE_OTA == 1)
-    co_handle_t handle;
-    co_config_t config = {
-        .thread_name = "corsacOTA",
-        .stack_size = 3192,
-        .thread_prio = 8,
-        .listen_port = 3241,
-        .max_listen_num = 2,
-        .wait_timeout_sec = 60,
-        .wait_timeout_usec = 0,
+    static QueueHandle_t uart_queue1 = NULL;
+    static QueueHandle_t uart_queue = NULL;
+    uart_queue = xQueueCreate(EVENTS_QUEUE_SIZE, sizeof(uart_events));
+    uart_queue1 = xQueueCreate(EVENTS_QUEUE_SIZE, sizeof(uart_events));
+    static struct uart_configrantion uart_param = {
+        .pin.CH = CH2,
+        .pin.MODE = RX,
+        .uart_config.baud_rate = 115200,
+        .uart_config.data_bits = UART_DATA_8_BITS,
+        .uart_config.parity = UART_PARITY_DISABLE,
+        .uart_config.stop_bits = UART_STOP_BITS_1,
+        .uart_config.flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+        .mode = SingleOutput,
+        .uart_num = UART_NUM_2,
     };
-
-    corsacOTA_init(&handle, &config);
-#endif
-
-    // Specify the usbip server task
-#if (USE_TCP_NETCONN == 1)
-    xTaskCreate(tcp_netconn_task, "tcp_server", 4096, NULL, 14, NULL);
-#else // BSD style
-    xTaskCreate(tcp_server_task, "tcp_server", 4096, NULL, 14, NULL);
-#endif
-
-    // DAP handle task
-    xTaskCreate(DAP_Thread, "DAP_Task", 2048, NULL, 10, &kDAPTaskHandle);
+    uart_param.uart_queue = &uart_queue;
+    static struct uart_configrantion uart_param1 = {
+        .pin.CH = CH3,
+        .pin.MODE = TX,
+        .uart_config.baud_rate = 115200,
+        .uart_config.data_bits = UART_DATA_8_BITS,
+        .uart_config.parity = UART_PARITY_DISABLE,
+        .uart_config.stop_bits = UART_STOP_BITS_1,
+        .uart_config.flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+        .mode = SingleOutput,
+        .uart_num = UART_NUM_1,
+    };
+    uart_param1.uart_queue = &uart_queue1;
+    static struct TcpUartParam tcp_param = {
+        .mode = RECEIVE,
+        .ch = CH2,
+    };
+    tcp_param.uart_queue = &uart_queue;
+    static struct TcpUartParam tcp_param1 = {
+        .mode = SEND,
+        .ch = CH3,
+    };
+    tcp_param1.uart_queue = &uart_queue1;   
+     xTaskCreate(uart_send, "uarts", 4096, (void *)&uart_param1, 10, NULL);
+    os_printf("create uarts \n");
+    os_printf("create tcps \n");
+    xTaskCreate(tcp_send_server, "tcps", 4096, (void *)&tcp_param1, 10, NULL);
+    os_printf("finish \n");
+ 
+    os_printf("start create task \n");   
+    xTaskCreate(uart_rev, "uartr", 3072, (void *)&uart_param, 10, NULL);
+    os_printf("create uartr \n");
+    xTaskCreate(tcp_rev_server, "tcpr", 4096, (void *)&tcp_param, 10, NULL);
+    os_printf("create tcpr \n");
 
 #if (USE_UART_BRIDGE == 1)
-    xTaskCreate(uart_bridge_task, "uart_server", 1024, NULL, 2, NULL);
+
 #endif
 }

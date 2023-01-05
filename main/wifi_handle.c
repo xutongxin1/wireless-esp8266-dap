@@ -74,7 +74,7 @@ static esp_err_t event_handler(void *ctx, system_event_t *event) {
 #endif
 
 #if (USE_UART_BRIDGE == 1)
-        uart_bridge_close();
+       
 #endif
         break;
     case SYSTEM_EVENT_AP_STA_GOT_IP6:
