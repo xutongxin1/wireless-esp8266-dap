@@ -13,11 +13,15 @@
  */
 #include "sdkconfig.h"
 
+#include <soc/gpio_sig_map.h>
+#include <soc/io_mux_reg.h>
 #include <stdbool.h>
+#include <soc/gpio_periph.h>
 
 #include "components/DAP/include/cmsis_compiler.h"
-#include "components/DAP/include/spi_switch.h"
 #include "components/DAP/include/gpio_common.h"
+#include "components/DAP/include/spi_switch.h"
+
 
 #ifdef CONFIG_IDF_TARGET_ESP8266
     #define DAP_SPI SPI1

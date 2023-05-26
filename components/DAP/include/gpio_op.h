@@ -12,11 +12,11 @@
 #ifndef __GPIO_OP_H__
 #define __GPIO_OP_H__
 
-#include "sdkconfig.h"
 #include "components/DAP/include/cmsis_compiler.h"
 #include "components/DAP/include/gpio_common.h"
-
-
+#include "sdkconfig.h"
+#include <soc/io_mux_reg.h>
+#include <soc/gpio_periph.h>
 
 #ifdef CONFIG_IDF_TARGET_ESP8266
 __STATIC_INLINE __UNUSED void GPIO_FUNCTION_SET(int io_num)
