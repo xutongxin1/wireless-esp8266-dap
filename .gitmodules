@@ -1,4 +1,3 @@
-
 [submodule "components/corsacOTA"]
 	path = components/corsacOTA
 	url = https://github.com/windowsair/corsacOTA.git
