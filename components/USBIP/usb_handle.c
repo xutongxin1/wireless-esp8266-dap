@@ -10,8 +10,8 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "main/usbip_server.h"
-#include "main/wifi_configuration.h"
+#include "WirelessDAP_main/usbip_server.h"
+#include "WirelessDAP_main/wifi_configuration.h"
 
 #include "components/USBIP/usb_handle.h"
 #include "components/USBIP/usb_descriptor.h"

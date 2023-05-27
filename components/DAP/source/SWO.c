@@ -49,7 +49,7 @@
 #include "freertos/event_groups.h"
 
 
-EventGroupHandle_t kSwoThreadEventGroup;
+DAP_EventGroupHandle_t kSwoThreadEventGroup;
 
 
 #if (SWO_STREAM != 0)

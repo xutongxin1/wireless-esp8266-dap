@@ -8,10 +8,10 @@
 void esp_print_tasks(void)
 {
     char *pbuffer = (char *)calloc(1, 2048);
-    os_printf("--------------- heap:%u ---------------------\r\n", esp_get_free_heap_size());
+    printf("--------------- heap:%lu ---------------------\r\n", esp_get_free_heap_size());
     vTaskGetRunTimeStats(pbuffer);
-    os_printf("%s", pbuffer);
-    os_printf("----------------------------------------------\r\n");
+    printf("%s", pbuffer);
+    printf("----------------------------------------------\r\n");
     free(pbuffer);
 }
 
@@ -19,6 +19,6 @@ void monitor_task()
 {
     while(1) {
         esp_print_tasks();
-        vTaskDelay(3000 / portTICK_RATE_MS);
+        vTaskDelay(3000 / portTICK_PERIOD_MS);
     }
 }

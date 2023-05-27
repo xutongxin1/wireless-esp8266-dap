@@ -30,7 +30,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <sys/param.h>
 #include <stdatomic.h>
 
-#include "main/wifi_configuration.h"
+#include "WirelessDAP_main/wifi_configuration.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"

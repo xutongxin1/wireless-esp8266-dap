@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "main/dap_configuration.h"
+#include "WirelessDAP_main/dap_configuration.h"
 
 #include "components/DAP/include/cmsis_compiler.h"
 #include "components/DAP/include/spi_op.h"

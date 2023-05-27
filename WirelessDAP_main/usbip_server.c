@@ -1,11 +1,11 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "main/usbip_server.h"
-#include "main/kcp_server.h"
-#include "main/tcp_netconn.h"
-#include "main/DAP_handle.h"
-#include "main/wifi_configuration.h"
+#include "WirelessDAP_main/usbip_server.h"
+#include "WirelessDAP_main/kcp_server.h"
+#include "WirelessDAP_main/tcp_netconn.h"
+#include "WirelessDAP_main/DAP_handle.h"
+#include "WirelessDAP_main/wifi_configuration.h"
 
 #include "components/USBIP/usb_handle.h"
 #include "components/USBIP/usb_descriptor.h"

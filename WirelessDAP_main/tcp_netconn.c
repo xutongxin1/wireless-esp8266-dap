@@ -17,9 +17,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <stdint.h>
 #include <sys/param.h>
 
-#include "main/wifi_configuration.h"
-#include "main/usbip_server.h"
-#include "main/tcp_netconn.h"
+#include "WirelessDAP_main/wifi_configuration.h"
+#include "WirelessDAP_main/usbip_server.h"
+#include "WirelessDAP_main/tcp_netconn.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -136,7 +136,7 @@ void tcp_netconn_task()
     struct netconn *nc = NULL; // To create servers
 
     set_tcp_server_netconn(&nc, PORT, netCallback);
-    os_printf("Server netconn %u ready on port %u.\n", (uint32_t)nc, PORT);
+    os_printf("Server netconn %lu ready on port %u.\n", (uint32_t)nc, PORT);
 
     struct netbuf *netbuf = NULL; // To store incoming Data
     struct netconn *nc_in = NULL; // To accept incoming netconn
@@ -151,14 +151,14 @@ void tcp_netconn_task()
 
         if (events.nc->state == NETCONN_LISTEN) // If netconn is a server and receive incoming event on it
         {
-            os_printf("Client incoming on server %u.\n", (uint32_t)events.nc);
+            os_printf("Client incoming on server %lu.\n", (uint32_t)events.nc);
             int err = netconn_accept(events.nc, &nc_in);
             if (err != ERR_OK)
             {
                 if (nc_in)
                     netconn_delete(nc_in);
             }
-            os_printf("New client is %u.\n", (uint32_t)nc_in);
+            os_printf("New client is %lu.\n", (uint32_t)nc_in);
             ip_addr_t client_addr; // Address port
             uint16_t client_port;  // Client port
             netconn_peer(nc_in, &client_addr, &client_port);

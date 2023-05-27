@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "main/timer.h"
+#include "WirelessDAP_main/timer.h"
 
 #ifdef CONFIG_IDF_TARGET_ESP8266
     #include "hw_timer.h"

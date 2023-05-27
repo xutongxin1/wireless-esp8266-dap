@@ -45,9 +45,9 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "main/dap_configuration.h"
-#include "main/wifi_configuration.h"
-#include "main/timer.h"
+#include "WirelessDAP_main/dap_configuration.h"
+#include "WirelessDAP_main/wifi_configuration.h"
+#include "WirelessDAP_main/timer.h"
 
 #include "components/DAP/include/cmsis_compiler.h"
 #include "components/DAP/include/gpio_op.h"

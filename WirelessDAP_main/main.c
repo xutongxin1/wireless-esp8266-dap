@@ -11,13 +11,13 @@
 #include <sys/param.h>
 
 #include "sdkconfig.h"
-#include "main/tcp_server.h"
-#include "main/tcp_netconn.h"
-#include "main/kcp_server.h"
-#include "main/uart_bridge.h"
-#include "main/timer.h"
-#include "main/wifi_configuration.h"
-#include "main/wifi_handle.h"
+#include "WirelessDAP_main/tcp_server.h"
+#include "WirelessDAP_main/tcp_netconn.h"
+#include "WirelessDAP_main/kcp_server.h"
+#include "WirelessDAP_main/uart_bridge.h"
+#include "WirelessDAP_main/timer.h"
+#include "WirelessDAP_main/wifi_configuration.h"
+#include "WirelessDAP_main/wifi_handle.h"
 
 #include "components/corsacOTA/src/corsacOTA.h"
 
@@ -95,7 +95,7 @@ void app_main() {
 #if (USE_UART_BRIDGE == 1)
     uart_bridge_init();
 #endif
-    wifi_init();
+//    wifi_init();//TODO:需要重写的点
     DAP_Setup();
     timer_init();
 

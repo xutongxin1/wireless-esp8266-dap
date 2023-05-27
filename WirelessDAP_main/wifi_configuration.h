@@ -60,10 +60,9 @@ static struct {
 #warning KCP is a very experimental feature, and it should not be used under any circumstances. Please make sure what you are doing. Related usbip version: https://github.com/windowsair/usbip-win
 #endif
 
+#define os_printf printf
 
 extern int printf(const char *, ...);
-inline int os_printf(const char *__restrict __fmt, ...)  {
-    return printf(__fmt, __builtin_va_arg_pack());
-}
+
 
 #endif
