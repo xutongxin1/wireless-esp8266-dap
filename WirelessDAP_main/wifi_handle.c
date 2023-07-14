@@ -29,7 +29,6 @@
 
 static EventGroupHandle_t wifi_event_group;
 static int ssid_index = 0;
-
 const int IPV4_GOTIP_BIT = BIT0;
 #ifdef CONFIG_EXAMPLE_IPV6
 const int IPV6_GOTIP_BIT = BIT1;

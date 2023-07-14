@@ -811,7 +811,8 @@ default, the DWT timer is used.  The frequency of this timer is configured with 
  */
 __STATIC_INLINE uint32_t TIMESTAMP_GET(void)
 {
-  return get_timer_count();
+    return 0;
+//  return get_timer_count();
 }
 
 ///@}

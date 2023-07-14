@@ -11,7 +11,7 @@
 #include <sys/param.h>
 
 #include "sdkconfig.h"
-#include "WirelessDAP_main/tcp_server.h"
+#include "WirelessDAP_main/dap_tcp_server.h"
 #include "WirelessDAP_main/tcp_netconn.h"
 #include "WirelessDAP_main/kcp_server.h"
 #include "WirelessDAP_main/uart_bridge.h"
@@ -36,12 +36,10 @@
 #include <lwip/netdb.h>
 
 #include "mdns.h"
+#include "DAP_handle.h"
 
-extern void DAP_Setup(void);
-extern void DAP_Thread(void *argument);
-extern void SWO_Thread();
 
-TaskHandle_t kDAPTaskHandle = NULL;
+
 
 
 static const char *MDNS_TAG = "server_common";
@@ -123,11 +121,11 @@ void app_main() {
 #if (USE_TCP_NETCONN == 1)
     xTaskCreate(tcp_netconn_task, "tcp_server", 4096, NULL, 14, NULL);
 #else // BSD style
-    xTaskCreate(tcp_server_task, "tcp_server", 4096, NULL, 14, NULL);
+    xTaskCreate(dap_tcp_server_task, "tcp_server", 4096, NULL, 14, NULL);
 #endif
 
     // DAP handle task
-    xTaskCreate(DAP_Thread, "DAP_Task", 2048, NULL, 10, &kDAPTaskHandle);
+    xTaskCreate(DAP_Thread, "DAP_Task", 2048, NULL, 10, NULL);
 
 #if defined CONFIG_IDF_TARGET_ESP8266
     #define UART_BRIDGE_TASK_STACK_SIZE 1024

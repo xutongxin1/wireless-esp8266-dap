@@ -68,7 +68,7 @@ typedef struct {
 extern volatile frc2_struct_t* frc2;
 #endif
 
-extern void timer_init();
-extern uint32_t get_timer_count();
+void timer_init();
+uint32_t get_timer_count();
 
 #endif

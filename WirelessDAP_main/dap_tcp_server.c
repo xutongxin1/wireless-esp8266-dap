@@ -29,6 +29,7 @@
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
+#include "../../XMB-FunctionModules/InstructionServer/tcp_server1.h"
 #include <lwip/netdb.h>
 
 extern TaskHandle_t kDAPTaskHandle;
@@ -37,7 +38,7 @@ extern int kRestartDAPHandle;
 uint8_t kState = ACCEPTING;
 int kSock = -1;
 
-void tcp_server_task(void *pvParameters)
+void dap_tcp_server_task(void *pvParameters)
 {
     uint8_t tcp_rx_buffer[1500];
     char addr_str[128];

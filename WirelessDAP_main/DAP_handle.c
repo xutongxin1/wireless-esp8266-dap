@@ -32,6 +32,7 @@
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include <lwip/netdb.h>
+#include "../XMB-FunctionModules/InstructionServer/tcp_server1.h"   // 用了里面的枚举
 
 #if ((USE_MDNS == 1) || (USE_OTA == 1))
     #define DAP_BUFFER_NUM 10
