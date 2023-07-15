@@ -2,8 +2,8 @@
 #include <string.h>
 
 #include "WirelessDAP_main/usbip_server.h"
-#include "WirelessDAP_main/kcp_server.h"
-#include "WirelessDAP_main/tcp_netconn.h"
+//#include "WirelessDAP_main/kcp_server.h"
+//#include "WirelessDAP_main/tcp_netconn.h"
 #include "WirelessDAP_main/DAP_handle.h"
 #include "WirelessDAP_main/wifi_configuration.h"
 
@@ -12,8 +12,8 @@
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
-#include "lwip/sys.h"
-#include <lwip/netdb.h>
+//#include "lwip/sys.h"
+//#include <lwip/netdb.h>
 
 
 // attach helper function

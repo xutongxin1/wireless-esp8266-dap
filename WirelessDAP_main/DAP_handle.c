@@ -10,9 +10,11 @@
  * @copyright Copyright (c) 2021
  *
  */
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/ringbuf.h"
+#include "freertos/semphr.h"
 
-#include <stdint.h>
-#include <string.h>
 
 #include "WirelessDAP_main/usbip_server.h"
 #include "WirelessDAP_main/DAP_handle.h"
@@ -23,16 +25,12 @@
 #include "components/DAP/include/DAP.h"
 #include "components/DAP/include/swo.h"
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/ringbuf.h"
-#include "freertos/semphr.h"
-
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include <lwip/netdb.h>
-#include "../XMB-FunctionModules/InstructionServer/tcp_server1.h"   // 用了里面的枚举
+
+
 
 #if ((USE_MDNS == 1) || (USE_OTA == 1))
     #define DAP_BUFFER_NUM 10

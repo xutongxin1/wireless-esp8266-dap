@@ -121,7 +121,7 @@ void app_main() {
 #if (USE_TCP_NETCONN == 1)
     xTaskCreate(tcp_netconn_task, "tcp_server", 4096, NULL, 14, NULL);
 #else // BSD style
-    xTaskCreate(dap_tcp_server_task, "tcp_server", 4096, NULL, 14, NULL);
+    xTaskCreate(USBIP_server_task, "tcp_server", 4096, NULL, 14, NULL);
 #endif
 
     // DAP handle task
